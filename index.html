@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flugvorbereitung</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .form-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .form-group label {
+            flex: 1;
+        }
+
+        .form-group input {
+            flex: 2;
+            margin-right: 1rem;
+        }
+
+        .frequency {
+            flex: 1;
+            font-weight: bold;
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+    <h1>Flugvorbereitungsplan</h1>
+
+    <!-- Vorbereitung Gruppe -->
+    <section>
+        <h2>V - Vorbereitung</h2>
+        <form id="preparation-form">
+            <div class="form-group">
+                <label for="date">V1a - Flugdatum:</label>
+                <input type="date" id="date" name="date">
+            </div>
+
+            <div class="form-group">
+                <label for="startAirport">V1b - Startflugplatz:</label>
+                <input type="text" id="startAirport" name="startAirport">
+                <span id="startFrequency" class="frequency"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="destinationAirport">V1c - Zielflugplatz:</label>
+                <input type="text" id="destinationAirport" name="destinationAirport">
+                <span id="destinationFrequency" class="frequency"></span>
+            </div>
+
+            <!-- Weitere Felder für die Vorbereitung -->
+        </form>
+    </section>
+
+    <!-- FPL-Datei hochladen -->
+    <section>
+        <h2>FPL-Datei importieren</h2>
+        <input type="file" id="fplFile" accept=".fpl,.xml">
+        <button type="button" onclick="importFPL()">Importieren</button>
+    </section>
+    <section>
+        <h2>FPL-Datei importieren</h2>
+        <input type="file" id="fplFile" accept=".fpl,.xml">
+        <button type="button" onclick="importFPL()">Importieren</button>
+        <button type="button" onclick="generateRouteURL()">Route URL generieren</button>
+    </section>
+    
+    <script src="script.js"></script>
+</body>
+</html>
