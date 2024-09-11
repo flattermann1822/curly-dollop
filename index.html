@@ -1,4 +1,3 @@
-<!--https://chatgpt.com/share/5159137a-430d-4af2-8466-04e0f205ef03 -->
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -12,7 +11,7 @@
 </head>
 <body>
     <h1>Flugvorbereitung</h1>
-    
+
     <!-- Abschnitt 1: Flugzeugauswahl -->
     <section>
         <h2>Flugzeugauswahl</h2>
@@ -22,27 +21,31 @@
         <div class="field-group">
             <h3>Weight and Balance</h3>
             <ul>
-                <li><strong>Empty Weight:</strong> <span id="EmptyWeight"></span></li>
-                <li><strong>MTOW:</strong> <span id="MTOW"></span></li>
-                <li><strong>Payload:</strong> <span id="Payload"></span></li>
+                <li><strong>Empty Weight:</strong> <input type="text" id="EmptyWeight"></li>
+                <li><strong>MTOW:</strong> <input type="text" id="MTOW"></li>
+                <li><strong>Payload:</strong> <input type="text" id="Payload"></li>
             </ul>
         </div>
 
         <div class="field-group">
             <h3>Startstrecke</h3>
             <ul>
-                <li><strong>Start Distance (0m):</strong> <span id="startDistance0m"></span></li>
-                <li><strong>Start Distance (15m):</strong> <span id="startDistance15m"></span></li>
+                <li><strong>Start Distance (0m):</strong> <input type="text" id="startDistance0m"></li>
+                <li><strong>Start Distance (15m):</strong> <input type="text" id="startDistance15m"></li>
             </ul>
         </div>
 
-        <ul>
-            <li><strong>Consumption:</strong> <span id="Consumption"></span></li>
-            <li><strong>SN:</strong> <span id="SN"></span></li>
-            <li><strong>Speed Cruise (km/h):</strong> <span id="SpeedCruise_kmh"></span></li>
-            <li><strong>Type:</strong> <span id="Type"></span></li>
-            <li><strong>Max Crosswind (kt):</strong> <span id="maxCrosswind_kt"></span></li>
-        </ul>
+        <div class="field-group">
+            <h3>Airplane</h3>
+            <ul>
+                <li><strong>Consumption:</strong> <input type="text" id="Consumption"></li>
+                <li><strong>SN:</strong> <input type="text" id="SN"></li>
+                <li><strong>Speed Cruise (km/h):</strong> <input type="text" id="SpeedCruise_kmh"></li>
+                <li><strong>Type:</strong> <input type="text" id="Type"></li>
+                <li><strong>Max Crosswind (kt):</strong> <input type="text" id="maxCrosswind_kt"></li>
+            </ul>
+        </div>
+
     </section>
 
     <!-- Abschnitt 2: Wetter -->
@@ -60,6 +63,8 @@
     </section>
 
     <button id="submitBtn">Vorbereitung abschließen</button>
+
+    <button id="saveBtn">Änderungen speichern</button>
 
     <!-- Einbinden der JavaScript-Datei -->
     <script src="script.js"></script>
