@@ -1,0 +1,147 @@
+/* Allgemeine Stile */
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f7f7f7;
+    color: #333;
+}
+
+/* Header */
+header {
+    background: #2c3e50;
+    color: #ffffff;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.2em;
+}
+
+/* Sektionen */
+section {
+    background: #ffffff;
+    margin: 40px auto;
+    padding: 40px;
+    max-width: 800px;
+    position: relative;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+}
+
+h2 {
+    color: #2c3e50;
+    font-size: 1.6em;
+    margin-bottom: 20px;
+}
+
+/* Unterabschnitte */
+.subsection {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.subsection label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #444;
+    font-size: 1em;
+}
+
+.subsection input[type="text"], 
+.subsection input[type="email"], 
+.subsection input[type="number"], 
+.subsection select, 
+.subsection textarea {
+    width: 100%;
+    max-width: 400px; /* Eingabefelder kürzer gemacht */
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    font-size: 1em;
+    transition: all 0.3s;
+}
+
+.subsection input[type="file"] {
+    width: calc(50% - 10px); /* Breite für Datei-Import-Felder */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    font-size: 1em;
+    transition: all 0.3s;
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.subsection input[type="file"]:last-child {
+    margin-right: 0;
+}
+
+.subsection input[type="text"]:focus, 
+.subsection input[type="email"]:focus, 
+.subsection input[type="number"]:focus, 
+.subsection select:focus, 
+.subsection textarea:focus {
+    border-color: #2c3e50;
+    background-color: #ffffff;
+    outline: none;
+    transform: translateY(-2px);
+}
+
+/* Drei nebeneinander angeordnete Texteingabefelder */
+.subsection-multiple {
+    display: flex;
+    justify-content: space-between;
+}
+
+.subsection-multiple input[type="text"] {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.subsection-multiple input[type="text"]:last-child {
+    margin-right: 0;
+}
+
+/* Steuerelemente */
+button {
+    background: #2c3e50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background 0.3s, transform 0.2s;
+}
+
+button:hover {
+    background: #34495e;
+    transform: translateY(-2px);
+}
+
+input[type="checkbox"], input[type="radio"] {
+    margin-right: 10px;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Footer */
+footer {
+    background: #2c3e50;
+    color: #ffffff;
+    text-align: center;
+    padding: 15px 0;
+    margin-top: 50px;
+    font-size: 0.9em;
+}

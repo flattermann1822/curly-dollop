@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FPL Parser</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <h1>FPL File Parser</h1>
+    <p>Select an FPL file to parse and display its content:</p>
+    <input type="file" id="fplFileInput" accept=".fpl">
+    
+    <h2>Waypoints</h2>
+    <table id="waypointsTable">
+        <thead>
+            <tr>
+                <th>Identifier</th>
+                <th>Type</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Table rows will be inserted here -->
+        </tbody>
+    </table>
+
+    <script>
+        document.getElementById('fplFileInput').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const parser = new DOMParser();
+                    const xmlDoc = parser.parseFromString(e.target.result, "application/xml");
+                    
+                    const waypoints = xmlDoc.getElementsByTagName('waypoint');
+                    const waypointsTable = document.getElementById('waypointsTable').getElementsByTagName('tbody')[0];
+                    waypointsTable.innerHTML = ''; // Clear any existing rows
+
+                    for (let i = 0; i < waypoints.length; i++) {
+                        const identifier = waypoints[i].getElementsByTagName('identifier')[0].textContent;
+                        const type = waypoints[i].getElementsByTagName('type')[0].textContent;
+                        const lat = waypoints[i].getElementsByTagName('lat')[0].textContent;
+                        const lon = waypoints[i].getElementsByTagName('lon')[0].textContent;
+
+                        const row = waypointsTable.insertRow();
+                        row.insertCell(0).textContent = identifier;
+                        row.insertCell(1).textContent = type;
+                        row.insertCell(2).textContent = lat;
+                        row.insertCell(3).textContent = lon;
+                    }
+                };
+                reader.readAsText(file);
+            }
+        });
+    </script>
+</body>
+</html>

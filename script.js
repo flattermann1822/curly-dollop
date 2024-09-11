@@ -1,78 +1,62 @@
-document.addEventListener('DOMContentLoaded', function () {
-    let waypoints = [];
+// Firebase-Konfiguration
+var firebaseConfig = {
+    apiKey: "AIzaSyCP9hjGOd37eCOWvLMP7euAjBnJh0xp1eU",
+    authDomain: "userdataproject-62527.firebaseapp.com",
+    projectId: "userdataproject-62527",
+    storageBucket: "userdataproject-62527.appspot.com",
+    messagingSenderId: "248653506177",
+    appId: "1:248653506177:web:6214a1d03f849992c54f80"
+};
 
-    function importFPL() {
-        const fileInput = document.getElementById('fplFile');
-        const file = fileInput.files[0];
+// Firebase initialisieren
+firebase.initializeApp(firebaseConfig);
+var db = firebase.firestore();
 
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(event) {
-                const parser = new DOMParser();
-                const xmlDoc = parser.parseFromString(event.target.result, "application/xml");
+// Funktion zum Abrufen der Flugzeuge und Befüllen des Dropdowns
+async function loadAirplanes() {
+    const airplanesDropdown = document.getElementById('airplaneId');
+    airplanesDropdown.innerHTML = ''; // Dropdown leeren
 
-                const waypointElements = xmlDoc.getElementsByTagName('waypoint');
-                waypoints = []; // Reset waypoints array for each import
+    const querySnapshot = await db.collection('Airplanes').get();
+    querySnapshot.forEach((doc) => {
+        const option = document.createElement('option');
+        option.value = doc.id;
+        option.text = doc.data().ID; // Das "ID"-Feld aus den Dokumenten
+        airplanesDropdown.appendChild(option);
+    });
 
-                for (let i = 0; i < waypointElements.length; i++) {
-                    const identifier = waypointElements[i].getElementsByTagName('identifier')[0].textContent;
-                    const lat = waypointElements[i].getElementsByTagName('lat')[0].textContent;
-                    const lon = waypointElements[i].getElementsByTagName('lon')[0].textContent;
-
-                    waypoints.push({ identifier, lat, lon });
-                }
-
-                const startAirport = waypoints[0]?.identifier || "";
-                const destinationAirport = waypoints[waypoints.length - 1]?.identifier || "";
-
-                document.getElementById('startAirport').value = startAirport;
-                document.getElementById('destinationAirport').value = destinationAirport;
-
-                // Frequenzen suchen und anzeigen
-                searchFrequencies(startAirport, destinationAirport);
-            };
-            reader.readAsText(file);
-        } else {
-            alert("Bitte eine FPL-Datei auswählen.");
-        }
+    // Wenn das Dropdown gefüllt ist, initial die Details des ersten Flugzeugs anzeigen
+    if (airplanesDropdown.options.length > 0) {
+        airplanesDropdown.selectedIndex = 0;
+        loadAirplaneDetails(); // Daten des ersten Flugzeugs laden
     }
+}
 
-    function searchFrequencies(start, destination) {
-        console.log(`Suche Frequenzen für ${start} und ${destination}...`);
+// Funktion zum Abrufen der Flugzeugdetails basierend auf der Auswahl
+async function loadAirplaneDetails() {
+    const airplaneId = document.getElementById('airplaneId').value;
+    const airplaneRef = db.collection('Airplanes').doc(airplaneId);
+    const doc = await airplaneRef.get();
 
-        const frequencies = {
-            "EDNY": "123.45 MHz",
-            "EDTF": "124.80 MHz"
-        };
-
-        if (frequencies[start]) {
-            document.getElementById('startFrequency').textContent = frequencies[start];
-        } else {
-            document.getElementById('startFrequency').textContent = "N/A";
-        }
-
-        if (frequencies[destination]) {
-            document.getElementById('destinationFrequency').textContent = frequencies[destination];
-        } else {
-            document.getElementById('destinationFrequency').textContent = "N/A";
-        }
+    if (doc.exists) {
+        const data = doc.data();
+        document.getElementById('Consumption').textContent = data.Consumption;
+        document.getElementById('EmptyWeight').textContent = data.EmptyWeight;
+        document.getElementById('MTOW').textContent = data.MTOW;
+        document.getElementById('Payload').textContent = data.Payload;
+        document.getElementById('SN').textContent = data.SN;
+        document.getElementById('SpeedCruise_kmh').textContent = data.SpeedCruise_kmh;
+        document.getElementById('Type').textContent = data.Type;
+        document.getElementById('maxCrosswind_kt').textContent = data.maxCrosswind_kt;
+        document.getElementById('startDistance0m').textContent = data.startDistance0m;
+        document.getElementById('startDistance15m').textContent = data.startDistance15m;
+    } else {
+        alert("Keine Daten für das ausgewählte Flugzeug gefunden.");
     }
+}
 
-    function generateRouteURL() {
-        if (waypoints.length === 0) {
-            alert("Bitte importiere zuerst eine FPL-Datei.");
-            return;
-        }
-
-        const urlBase = "https://www.windy.com/route-planner/vfr/";
-        const coordinates = waypoints.map(wp => `${parseFloat(wp.lat).toFixed(4)},${parseFloat(wp.lon).toFixed(4)}`).join(";");
-        const url = `${urlBase}${coordinates}`;
-
-        // Die URL in einem neuen Tab öffnen
-        window.open(url, '_blank');
-    }
-
-    // Globale Funktionen zur Verwendung im HTML
-    window.importFPL = importFPL;
-    window.generateRouteURL = generateRouteURL;
-});
+// Daten laden, wenn die Seite geladen wird
+window.onload = function() {
+    loadAirplanes();
+    document.getElementById('airplaneId').addEventListener('change', loadAirplaneDetails);
+};

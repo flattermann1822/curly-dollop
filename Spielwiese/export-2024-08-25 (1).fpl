@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flight-plan xmlns="http://www8.garmin.com/xmlschemas/FlightPlan/v1">
+<created>2024-08-25T10:05:00.725593Z</created>
+<waypoint-table>
+ <waypoint>
+   <identifier>EDNY</identifier>
+   <type>AIRPORT</type>
+   <country-code>ED</country-code>
+   <lat>47.67145953679635</lat>
+   <lon>9.511855514493222</lon>
+ </waypoint>
+ <waypoint>
+   <identifier>WP001</identifier>
+   <type>USER WAYPOINT</type>
+   <country-code />
+   <lat>47.67792236</lat>
+   <lon>9.38693225</lon>
+ </waypoint>
+ <waypoint>
+   <identifier>WP002</identifier>
+   <type>USER WAYPOINT</type>
+   <country-code />
+   <lat>47.72308881870427</lat>
+   <lon>9.22910240595715</lon>
+ </waypoint>
+ <waypoint>
+   <identifier>WP003</identifier>
+   <type>USER WAYPOINT</type>
+   <country-code />
+   <lat>47.70212177681893</lat>
+   <lon>9.146450935015167</lon>
+ </waypoint>
+ <waypoint>
+   <identifier>EDTZ</identifier>
+   <type>AIRPORT</type>
+   <country-code>ED</country-code>
+   <lat>47.681570082739775</lat>
+   <lon>9.138969296337752</lon>
+ </waypoint>
+</waypoint-table>
+<route>
+ <route-name>null</route-name>
+ <route-point>
+   <waypoint-identifier>EDNY</waypoint-identifier>
+   <waypoint-type>AIRPORT</waypoint-type>
+   <waypoint-country-code>ED</waypoint-country-code>
+ </route-point>
+ <route-point>
+   <waypoint-identifier>WP001</waypoint-identifier>
+   <waypoint-type>USER WAYPOINT</waypoint-type>
+   <waypoint-country-code/>
+ </route-point>
+ <route-point>
+   <waypoint-identifier>WP002</waypoint-identifier>
+   <waypoint-type>USER WAYPOINT</waypoint-type>
+   <waypoint-country-code/>
+ </route-point>
+ <route-point>
+   <waypoint-identifier>WP003</waypoint-identifier>
+   <waypoint-type>USER WAYPOINT</waypoint-type>
+   <waypoint-country-code/>
+ </route-point>
+ <route-point>
+   <waypoint-identifier>EDTZ</waypoint-identifier>
+   <waypoint-type>AIRPORT</waypoint-type>
+   <waypoint-country-code>ED</waypoint-country-code>
+ </route-point>
+</route>
+</flight-plan>

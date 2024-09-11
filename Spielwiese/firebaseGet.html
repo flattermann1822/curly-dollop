@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase Firestore Demo</title>
+</head>
+<body>
+    <h1>Firebase Firestore Demo</h1>
+
+    <!-- Formular zum Speichern von Daten -->
+    <form id="dataForm">
+        <input type="text" id="name" placeholder="Name" required>
+        <input type="number" id="age" placeholder="Age" required>
+        <button type="submit">Save Data</button>
+    </form>
+
+    <hr>
+
+    <!-- Button zum Abrufen von Daten -->
+    <button id="fetchData">Fetch Data</button>
+    <div id="output"></div>
+
+    <!-- Firebase SDK (verwende Version 9.x.x kompatible mit nicht-ESM Browsern) -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+
+    <script>
+        // Firebase-Konfiguration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDz1eeEdzc4fep_aeC51BcWoKfenDM6Mkc",
+            authDomain: "aviationprepare.firebaseapp.com",
+            projectId: "aviationprepare",
+            storageBucket: "aviationprepare.appspot.com",
+            messagingSenderId: "556041778046",
+            appId: "1:556041778046:web:e01090064c639be72bf92f"
+        };
+
+        // Firebase initialisieren
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // Daten speichern
+        document.getElementById('dataForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const age = document.getElementById('age').value;
+
+            db.collection('users').add({
+                name: name,
+                age: parseInt(age)
+            })
+            .then(() => {
+                alert('Data Saved');
+            })
+            .catch((error) => {
+                console.error('Error adding document: ', error);
+            });
+        });
+
+        // Daten abrufen
+        document.getElementById('fetchData').addEventListener('click', () => {
+            db.collection('users').get().then((querySnapshot) => {
+                const outputDiv = document.getElementById('output');
+                outputDiv.innerHTML = '';
+                querySnapshot.forEach((doc) => {
+                    outputDiv.innerHTML += `<p>Name: ${doc.data().name}, Age: ${doc.data().age}</p>`;
+                });
+            });
+        });
+    </script>
+</body>
+</html>

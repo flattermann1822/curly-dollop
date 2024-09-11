@@ -1,0 +1,203 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="utf-8"/>        
+    <style>
+body {
+  font-size: 70%;
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  font-family: arial, sans-serif;
+}
+
+/*
+@page {
+  size: 297mm 210mm;
+  margin: 0;
+  border: 1px solid red;
+  width: 29.5cm;
+  height: 20.9cm;
+}
+*/
+
+.sheet {
+
+/*  
+  -webkit-column-count: 2;
+          column-count: 2;
+  -webkit-column-fill: auto;
+          column-fill: auto;
+  -webkit-column-gap: 40px;
+          column-gap: 40px;
+  border: 1px solid red;
+  width: 29.5cm;
+  height: 20.9cm;
+  */
+  
+  position: relative;
+  padding: 2em;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.sheet .divider {
+ /*
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  border-left: 1px dashed black;
+  */
+}
+
+a {
+  text-decoration: none;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 0 0.4em;
+}
+
+thead th {
+  height: 20px;
+  border-bottom: 1px solid black;
+  background-color: #e2e2e2;
+}
+
+tfoot th {
+  height: 20px;
+  border-top: 1px solid black;
+}
+
+img {
+  display: block;
+}
+
+table {
+  width: 100%;
+  empty-cells: show;
+  border-collapse: collapse;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  border: 1px solid black;
+}
+
+.nav thead th {
+  text-align: right;
+}
+
+.nav tbody tr:first-child th {
+  padding-top: 10px !important;
+}
+
+.nav tbody tr:last-child th {
+  padding-bottom: 10px !important;
+}
+
+.nav tbody td {
+  white-space: nowrap;
+}
+
+.nav tbody th span {
+  background-color: white;
+  z-index: 10;
+  position: relative;
+  padding-right: 1em;
+}
+
+.nav tbody th {
+  background-color: transparent;
+  color: #000;
+  font-weight: bold;
+  position: relative;
+  padding: 0;
+}
+
+.nav tbody th:first-child {
+  width: 40px;
+  padding: 0;
+}
+
+.nav tbody td:nth-child(n + 2) {
+  text-align: right;
+  width: 50px;
+}
+
+.nav tbody td:not(:first-child):not(:last-child) {
+  border-right: 1px solid #999;
+}
+
+.nav tbody td:first-child {
+  padding: 0em;
+  font-weight: normal;
+  text-align: left;
+}
+
+.nav tfoot th {
+  text-align: right;
+}
+
+.line {
+  width: 100%;
+  height: 0;
+  border-bottom: 1px solid #999;
+  margin: 0;
+  position: absolute;
+  z-index: 0;
+  top: 50%;
+  left: 0;
+}
+/*# sourceMappingURL=navlog.css.map */
+
+    </style>
+    </head>
+    <body>
+    <div class="sheet">
+    <h1>Flight Calculation - 2024-08-25 12:06</h1>
+    <table>
+    <tr><th>Aircraft</th><td>150 km/h - 14 l/h</td></tr>
+    <tr><th>Wind</th><td>4 kt - 290°</td></tr>
+    </table>
+    <table class="nav">
+    <thead>
+    <tr>
+      <th colspan="2"></th>
+      <th>Dist.</th>
+      <th>Time</th>
+      <th>GS</th>
+      <th>TC</th>
+      <th>TH</th>
+      <th>Fuel</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+<tr><th><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAYAAAD/Rn+7AAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAN5JREFUSInt1EFqwzAQQNE/Bc99jPDK0gVCQg5VSi7VJFeR5SOk2Wq6cBUCyaIQG2XhdwDpM0IDq9VqEXvgLCJXEbkCJ2BXuenmAJiq5hCChRBMVTNgwFflNvaAdV1n4zhakVIy55wxRW5rBp5VNd/HFcMwWNM0GThWqxORnxDCQ1zhvTcRucx558ech/2xBc78t5Oq5pTSw/RijOWJv2sG7gBzztl9ZIzR2rYtP3lTMxCmVWKqmr331vd9mZwBn5XbbrbAUURMRIzpWatP7pmy+xazxC+e1Rr4qrcP/AXSepkqu/fCeQAAAABJRU5ErkJggg==" /></th><th colspan="7"><span>Friedrichshafen</span><i class="line"></i></th></tr><tr><td colspan="2"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAYAAAD/Rn+7AAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAARlJREFUSInN0rFKA1EQBdB7F5EgCI/ZVGlsbaz9AIv8gNpZ+ANi9xBEsAjY2VtYCgp+gEV6exs/QNK4b7MgGBHcaxVYYtIsws7tZi4Mh8djWZZCy5gZYoyIMbY9AUljMxuS/FnWZ60v/1NI7lVVdb6q7xwIAJIuUkrDZZ0LIICM5N10Ot36U3ShWRGTdC9pvbn0BASA3aqqrpoLb0BIOk0p7c9nd0AAJHlbFMU24BMIAJtZlj1MJpMNr0AA2On1ejeegSD55Rn4MpvNTrwCP+q6PhwMBp8egZJ03O/3XwFgrWvNYkhem9njfPb2gs8hhLPmwhPwXdIBye/m0guwlnSU5/nbYuHiD5K8NLOnZV3nLyhpHEIYrep/ASi0ViZGylZmAAAAAElFTkSuQmCC" /></td><td>5.0 nm</td><td>00:04</td><td>142</td><td>275&deg;</td><td>276&deg;</td><td>0.9 l</td></tr>
+<tr><th><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAYAAAD/Rn+7AAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAONJREFUSIntlkFqwzAQRf8PeO5jhFeWLlAScqhQeqkmuYosH6Fd62fhKARS6MI2KsUPtNU8ZvgjAfPQ/azGbs3Ll2ATnMu/FTwCuJIESQC4ADgsZjWTDwAysxxCUAhBZpYxpfm9shuOANR1ncZxVCGlJOdcWTn7moJXM8vPcoVhGNQ0TQZwrmZH8juE8CJX8N6L5NeSNddI8aovy29czCynlF66F2MsI/6sKXgAIOecniVjjGrbtiT5raYgMK0SmVn23qvv+9I5AThVdnuwB3AmKZLCNNbqnfuJ7bu1Cc7lzwveADkWmUhUQrJcAAAAAElFTkSuQmCC" /></th><th colspan="7"><span>Friedrichshafen (WHISKEY)</span><i class="line"></i></th></tr><tr><td colspan="2"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAYAAAD/Rn+7AAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAARlJREFUSInN0rFKA1EQBdB7F5EgCI/ZVGlsbaz9AIv8gNpZ+ANi9xBEsAjY2VtYCgp+gEV6exs/QNK4b7MgGBHcaxVYYtIsws7tZi4Mh8djWZZCy5gZYoyIMbY9AUljMxuS/FnWZ60v/1NI7lVVdb6q7xwIAJIuUkrDZZ0LIICM5N10Ot36U3ShWRGTdC9pvbn0BASA3aqqrpoLb0BIOk0p7c9nd0AAJHlbFMU24BMIAJtZlj1MJpMNr0AA2On1ejeegSD55Rn4MpvNTrwCP+q6PhwMBp8egZJ03O/3XwFgrWvNYkhem9njfPb2gs8hhLPmwhPwXdIBye/m0guwlnSU5/nbYuHiD5K8NLOnZV3nLyhpHEIYrep/ASi0ViZGylZmAAAAAElFTkSuQmCC" /></td><td>6.0 nm</td><td>00:05</td><td>142</td><td>294&deg;</td><td>294&deg;</td><td>1.2 l</td></tr>
+<tr><th><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAYAAAD/Rn+7AAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAONJREFUSIntlkFqwzAQRf8PeO5jhFeWLlAScqhQeqkmuYosH6Fd62fhKARS6MI2KsUPtNU8ZvgjAfPQ/azGbs3Ll2ATnMu/FTwCuJIESQC4ADgsZjWTDwAysxxCUAhBZpYxpfm9shuOANR1ncZxVCGlJOdcWTn7moJXM8vPcoVhGNQ0TQZwrmZH8juE8CJX8N6L5NeSNddI8aovy29czCynlF66F2MsI/6sKXgAIOecniVjjGrbtiT5raYgMK0SmVn23qvv+9I5AThVdnuwB3AmKZLCNNbqnfuJ7bu1Cc7lzwveADkWmUhUQrJcAAAAAElFTkSuQmCC" /></th><th colspan="7"><span>Hafen Unteruldingen</span><i class="line"></i></th></tr><tr><td colspan="2"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAYAAAD/Rn+7AAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAARlJREFUSInN0rFKA1EQBdB7F5EgCI/ZVGlsbaz9AIv8gNpZ+ANi9xBEsAjY2VtYCgp+gEV6exs/QNK4b7MgGBHcaxVYYtIsws7tZi4Mh8djWZZCy5gZYoyIMbY9AUljMxuS/FnWZ60v/1NI7lVVdb6q7xwIAJIuUkrDZZ0LIICM5N10Ot36U3ShWRGTdC9pvbn0BASA3aqqrpoLb0BIOk0p7c9nd0AAJHlbFMU24BMIAJtZlj1MJpMNr0AA2On1ejeegSD55Rn4MpvNTrwCP+q6PhwMBp8egZJ03O/3XwFgrWvNYkhem9njfPb2gs8hhLPmwhPwXdIBye/m0guwlnSU5/nbYuHiD5K8NLOnZV3nLyhpHEIYrep/ASi0ViZGylZmAAAAAElFTkSuQmCC" /></td><td>3.0 nm</td><td>00:02</td><td>144</td><td>250&deg;</td><td>252&deg;</td><td>0.5 l</td></tr>
+<tr><th><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAYAAAD/Rn+7AAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAONJREFUSIntlkFqwzAQRf8PeO5jhFeWLlAScqhQeqkmuYosH6Fd62fhKARS6MI2KsUPtNU8ZvgjAfPQ/azGbs3Ll2ATnMu/FTwCuJIESQC4ADgsZjWTDwAysxxCUAhBZpYxpfm9shuOANR1ncZxVCGlJOdcWTn7moJXM8vPcoVhGNQ0TQZwrmZH8juE8CJX8N6L5NeSNddI8aovy29czCynlF66F2MsI/6sKXgAIOecniVjjGrbtiT5raYgMK0SmVn23qvv+9I5AThVdnuwB3AmKZLCNNbqnfuJ7bu1Cc7lzwveADkWmUhUQrJcAAAAAElFTkSuQmCC" /></th><th colspan="7"><span>EDTZ Konstanz Einflug Platzrunde</span><i class="line"></i></th></tr><tr><td colspan="2"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAYAAAD/Rn+7AAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAARlJREFUSInN0rFKA1EQBdB7F5EgCI/ZVGlsbaz9AIv8gNpZ+ANi9xBEsAjY2VtYCgp+gEV6exs/QNK4b7MgGBHcaxVYYtIsws7tZi4Mh8djWZZCy5gZYoyIMbY9AUljMxuS/FnWZ60v/1NI7lVVdb6q7xwIAJIuUkrDZZ0LIICM5N10Ot36U3ShWRGTdC9pvbn0BASA3aqqrpoLb0BIOk0p7c9nd0AAJHlbFMU24BMIAJtZlj1MJpMNr0AA2On1ejeegSD55Rn4MpvNTrwCP+q6PhwMBp8egZJ03O/3XwFgrWvNYkhem9njfPb2gs8hhLPmwhPwXdIBye/m0guwlnSU5/nbYuHiD5K8NLOnZV3nLyhpHEIYrep/ASi0ViZGylZmAAAAAElFTkSuQmCC" /></td><td>1.0 nm</td><td>00:01</td><td>150</td><td>194&deg;</td><td>197&deg;</td><td>0.2 l</td></tr><tr><th><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAYAAAD/Rn+7AAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAANxJREFUSIntlU1qwzAQRt8UPPcxwitLFygJOVQpvVR+riLLR6jXmi4clUAWWdhG0PqBttLjG74RLMPuZzPetrx8DXbBpfxZwRNwExFEBOAKHFezWsgXYKqaQwgWQjBVzcxt/qzsxgmwrutsHEcrpJTMOVdWzqGm4E1V86NcYRgGa5omA5dqdiIyhRCe5AreexOR7zXf3KLFm/4sr7iqak4pPaUXYywjPtcUPALmnLNHyRijtW1bmvxeUxDmVWKqmr331vd9Sc6Aj8puvxyAi4hMIjIxj7V6cjs7/5IfHpaXLD4iys0AAAAASUVORK5CYII=" /></th><th colspan="7"><span>Konstanz</span><i class="line"></i></th></tr>
+    </tbody>
+    <tfoot>
+      <tr>
+      <th colspan="2"></th>
+      <th>15.0 nm</th>
+      <th>00:12</th>
+      <th colspan="3"></th>
+      <th>2.8 l</th>
+      </tr>
+    </tfoot>
+    </table>
+    <span style="float: right">this navlog was generated by <a href="https://vfrnav.com">https://vfrnav.com</a> • <a href="https://charts.aero">https://charts.aero</a></span>
+
+
+    <div class="divider"></div>
+
+    </div>
+    </body>
+    </html>
+    

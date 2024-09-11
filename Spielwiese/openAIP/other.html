@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flughafeninformationen EDNY</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .output {
+            margin-top: 20px;
+            white-space: pre-wrap; /* Damit der Text in Formatierung bleibt */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Flughafeninformationen EDNY</h1>
+        <button onclick="fetchAirportInfo()">Daten abrufen</button>
+        <div class="output" id="output">Klicken Sie auf den Button, um die Flughafeninformationen abzurufen.</div>
+    </div>
+
+    <script>
+        async function fetchAirportInfo() {
+            const icaoCode = 'EDNY';
+            const apiUrl = `https://api.openflightmaps.org/airports/${icaoCode}`;
+
+            try {
+                const response = await fetch(apiUrl);
+                if (!response.ok) {
+                    throw new Error('Fehler beim Abrufen der Daten');
+                }
+                const data = await response.json();
+                displayData(data);
+            } catch (error) {
+                document.getElementById('output').innerText = 'Fehler: ' + error.message;
+            }
+        }
+
+        function displayData(data) {
+            const outputDiv = document.getElementById('output');
+            outputDiv.innerText = JSON.stringify(data, null, 2); // Schöne Formatierung der JSON-Daten
+        }
+    </script>
+</body>
+</html>

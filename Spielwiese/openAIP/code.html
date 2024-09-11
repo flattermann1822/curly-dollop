@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenAIP Luftrauminformationen</title>
+</head>
+<body>
+  <input type="text" id="latitude" placeholder="Breitengrad">
+  <input type="text" id="longitude" placeholder="Längengrad">
+  <button onclick="fetchAirspaceData()">Daten abrufen</button>
+  <div id="output"></div>
+
+  <script>
+    async function authenticateUser(email, password) {
+      const apiKey = "";
+      const url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${apiKey}`;
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email, password, returnSecureToken: true })
+      });
+      const data = await response.json();
+      return data.idToken;
+    }
+
+    async function fetchAirspaceData() {
+      const email = "";
+      const password = "";
+      const latitude = document.getElementById('latitude').value;
+      const longitude = document.getElementById('longitude').value;
+      const clientId = "DEIN_CLIENT_ID_TOKEN";
+      
+      try {
+        const idToken = await authenticateUser(email, password);
+        const url = `https://api.openaip.net/api/airspace?latitude=${latitude}&longitude=${longitude}&apiKey=${clientId}`;
+        const response = await fetch(url, {
+          headers: {
+            "Authorization": `Bearer ${idToken}`
+          }
+        });
+        const data = await response.json();
+        document.getElementById('output').innerText = JSON.stringify(data, null, 2);
+      } catch (error) {
+        console.error("Fehler:", error);
+      }
+    }
+  </script>
+</body>
+</html>

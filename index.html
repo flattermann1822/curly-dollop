@@ -1,3 +1,4 @@
+<!--https://chatgpt.com/share/5159137a-430d-4af2-8466-04e0f205ef03 -->
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -5,70 +6,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flugvorbereitung</title>
     <link rel="stylesheet" href="styles.css">
-    <style>
-        .form-group {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-        
-        .form-group label {
-            flex: 1;
-        }
-
-        .form-group input {
-            flex: 2;
-            margin-right: 1rem;
-        }
-
-        .frequency {
-            flex: 1;
-            font-weight: bold;
-            color: blue;
-        }
-    </style>
+    <!-- Firebase SDK für Version 8 (für Firestore und Authentifizierung) -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 </head>
 <body>
-    <h1>Flugvorbereitungsplan</h1>
-
-    <!-- Vorbereitung Gruppe -->
-    <section>
-        <h2>V - Vorbereitung</h2>
-        <form id="preparation-form">
-            <div class="form-group">
-                <label for="date">V1a - Flugdatum:</label>
-                <input type="date" id="date" name="date">
-            </div>
-
-            <div class="form-group">
-                <label for="startAirport">V1b - Startflugplatz:</label>
-                <input type="text" id="startAirport" name="startAirport">
-                <span id="startFrequency" class="frequency"></span>
-            </div>
-
-            <div class="form-group">
-                <label for="destinationAirport">V1c - Zielflugplatz:</label>
-                <input type="text" id="destinationAirport" name="destinationAirport">
-                <span id="destinationFrequency" class="frequency"></span>
-            </div>
-
-            <!-- Weitere Felder für die Vorbereitung -->
-        </form>
-    </section>
-
-    <!-- FPL-Datei hochladen -->
-    <section>
-        <h2>FPL-Datei importieren</h2>
-        <input type="file" id="fplFile" accept=".fpl,.xml">
-        <button type="button" onclick="importFPL()">Importieren</button>
-    </section>
-    <section>
-        <h2>FPL-Datei importieren</h2>
-        <input type="file" id="fplFile" accept=".fpl,.xml">
-        <button type="button" onclick="importFPL()">Importieren</button>
-        <button type="button" onclick="generateRouteURL()">Route URL generieren</button>
-    </section>
+    <h1>Flugvorbereitung</h1>
     
+    <!-- Abschnitt 1: Flugzeugauswahl -->
+    <section>
+        <h2>Flugzeugauswahl</h2>
+        <label for="airplaneId">Select Airplane by ID:</label>
+        <select id="airplaneId"></select>
+
+        <div class="field-group">
+            <h3>Weight and Balance</h3>
+            <ul>
+                <li><strong>Empty Weight:</strong> <span id="EmptyWeight"></span></li>
+                <li><strong>MTOW:</strong> <span id="MTOW"></span></li>
+                <li><strong>Payload:</strong> <span id="Payload"></span></li>
+            </ul>
+        </div>
+
+        <div class="field-group">
+            <h3>Startstrecke</h3>
+            <ul>
+                <li><strong>Start Distance (0m):</strong> <span id="startDistance0m"></span></li>
+                <li><strong>Start Distance (15m):</strong> <span id="startDistance15m"></span></li>
+            </ul>
+        </div>
+
+        <ul>
+            <li><strong>Consumption:</strong> <span id="Consumption"></span></li>
+            <li><strong>SN:</strong> <span id="SN"></span></li>
+            <li><strong>Speed Cruise (km/h):</strong> <span id="SpeedCruise_kmh"></span></li>
+            <li><strong>Type:</strong> <span id="Type"></span></li>
+            <li><strong>Max Crosswind (kt):</strong> <span id="maxCrosswind_kt"></span></li>
+        </ul>
+    </section>
+
+    <!-- Abschnitt 2: Wetter -->
+    <section>
+        <h2>Wetter</h2>
+        <label for="weather">Weather Data:</label>
+        <input type="text" id="weather" placeholder="Weather data input here...">
+    </section>
+
+    <!-- Abschnitt 3: Route -->
+    <section>
+        <h2>Route</h2>
+        <label for="route">Route Data:</label>
+        <input type="text" id="route" placeholder="Route data input here...">
+    </section>
+
+    <button id="submitBtn">Vorbereitung abschließen</button>
+
+    <!-- Einbinden der JavaScript-Datei -->
     <script src="script.js"></script>
 </body>
 </html>
