@@ -1,12 +1,4 @@
-// Firebase konfigurieren und initialisieren
-var firebaseConfig = {
-    apiKey: "AIzaSyCP9hjGOd37eCOWvLMP7euAjBnJh0xp1eU",
-    authDomain: "userdataproject-62527.firebaseapp.com",
-    projectId: "userdataproject-62527",
-    storageBucket: "userdataproject-62527.appspot.com",
-    messagingSenderId: "248653506177",
-    appId: "1:248653506177:web:6214a1d03f849992c54f80"
-};
+// Firebase konfigurieren und 
 
 // Firebase initialisieren
 firebase.initializeApp(firebaseConfig);
