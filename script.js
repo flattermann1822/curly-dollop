@@ -34,7 +34,7 @@ async function loadAirplanes() {
             const data = doc.data();
             const option = document.createElement('option');
             option.value = doc.id;
-            option.textContent = data.ID || doc.id; // Zeige das "ID"-Feld oder die Dokument-ID an
+            option.textContent = data.Callsign || doc.id; // Zeige das "Callsign"-Feld oder die Dokument-ID an
             option.title = doc.id; // Zeige die vollständige ID beim Mouseover an
             airplaneIdSelect.appendChild(option);
         });
@@ -80,10 +80,8 @@ async function loadAirplaneDetails() {
 async function saveAirplaneDetails() {
     const id = airplaneIdSelect.value;
     if (id) {
-        const confirmSave = confirm("Möchten Sie die Änderungen speichern? Wählen Sie 'OK' zum Überschreiben oder 'Abbrechen' zum Erstellen eines neuen Dokuments.");
-        try {
-            if (confirmSave) {
-                // Aktualisieren eines bestehenden Dokuments
+        if (confirm("Möchten Sie die Änderungen speichern?")) {
+            try {
                 await db.collection('Airplanes').doc(id).set({
                     EmptyWeight_kg: emptyWeightInput.value,
                     MTOW_kg: mtowInput.value,
@@ -94,35 +92,13 @@ async function saveAirplaneDetails() {
                     SN: snInput.value,
                     SpeedCruise_kmh: speedCruiseInput.value,
                     Type: typeInput.value,
-                    maxCrosswind_kt: maxCrosswindInput.value
+                    maxCrosswind_kt: maxCrosswindInput.value,
+                    Callsign: snInput.value // Callsign aktualisieren
                 }, { merge: true });
                 alert("Dokument erfolgreich aktualisiert!");
-            } else {
-                // Erstellen eines neuen Dokuments
-                const newId = db.collection('Airplanes').doc().id;
-                await db.collection('Airplanes').doc(newId).set({
-                    EmptyWeight_kg: emptyWeightInput.value,
-                    MTOW_kg: mtowInput.value,
-                    Payload_kg: payloadInput.value,
-                    startDistance0m_m: startDistance0mInput.value,
-                    startDistance15m_m: startDistance15mInput.value,
-                    ConsumptionTypical_l: consumptionInput.value,
-                    SN: snInput.value,
-                    SpeedCruise_kmh: speedCruiseInput.value,
-                    Type: typeInput.value,
-                    maxCrosswind_kt: maxCrosswindInput.value
-                });
-                alert("Neues Dokument erfolgreich erstellt!");
-                // Dropdown aktualisieren
-                const option = document.createElement('option');
-                option.value = newId;
-                option.textContent = newId; // Zeige die neue ID im Dropdown an
-                option.title = newId; // Zeige die neue ID beim Mouseover an
-                airplaneIdSelect.appendChild(option);
-                airplaneIdSelect.value = newId;
+            } catch (error) {
+                console.error("Fehler beim Speichern der Daten:", error);
             }
-        } catch (error) {
-            console.error("Fehler beim Speichern der Daten:", error);
         }
     }
 }
