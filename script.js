@@ -38,6 +38,12 @@ async function loadAirplanes() {
             option.title = doc.id; // Zeige die vollständige ID beim Mouseover an
             airplaneIdSelect.appendChild(option);
         });
+
+        // Nach dem Laden der Optionen das erste Dokument auswählen und dessen Details laden
+        if (snapshot.size > 0) {
+            airplaneIdSelect.value = snapshot.docs[0].id;
+            await loadAirplaneDetails(); // Details des ersten Dokuments laden
+        }
     } catch (error) {
         console.error("Fehler beim Laden der Flugzeuge:", error);
     }
@@ -127,5 +133,5 @@ airplaneIdSelect.addEventListener('change', loadAirplaneDetails);
 // Event-Listener für den Speichern-Button
 document.getElementById('saveBtn').addEventListener('click', saveAirplaneDetails);
 
-// Initiales Laden der Flugzeuge beim Laden der Seite
+// Initiales Laden der Flugzeuge und Details beim Laden der Seite
 window.onload = loadAirplanes;
