@@ -29,10 +29,13 @@ const maxCrosswindInput = document.getElementById('maxCrosswind_kt');
 async function loadAirplanes() {
     try {
         const snapshot = await db.collection('Airplanes').get();
+        airplaneIdSelect.innerHTML = ''; // Dropdown zurücksetzen
         snapshot.forEach(doc => {
+            const data = doc.data();
             const option = document.createElement('option');
             option.value = doc.id;
-            option.textContent = doc.id;
+            option.textContent = data.ID || doc.id; // Zeige das "ID"-Feld oder die Dokument-ID an
+            option.title = doc.id; // Zeige die vollständige ID beim Mouseover an
             airplaneIdSelect.appendChild(option);
         });
     } catch (error) {
@@ -107,7 +110,8 @@ async function saveAirplaneDetails() {
                 // Dropdown aktualisieren
                 const option = document.createElement('option');
                 option.value = newId;
-                option.textContent = newId;
+                option.textContent = newId; // Zeige die neue ID im Dropdown an
+                option.title = newId; // Zeige die neue ID beim Mouseover an
                 airplaneIdSelect.appendChild(option);
                 airplaneIdSelect.value = newId;
             }
