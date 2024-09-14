@@ -1,11 +1,11 @@
 // Firebase konfigurieren und initialisieren
 var firebaseConfig = {
-    apiKey: "AIzaSyCP9hjGOd37eCOWvLMP7euAjBnJh0xp1eU",
-    authDomain: "userdataproject-62527.firebaseapp.com",
-    projectId: "userdataproject-62527",
-    storageBucket: "userdataproject-62527.appspot.com",
-    messagingSenderId: "248653506177",
-    appId: "1:248653506177:web:6214a1d03f849992c54f80"
+    /*apiKey:  process.env.apiKey,
+    authDomain: process.env.authDomain,
+    projectId: process.env.projectId,
+    storageBucket: process.env.storageBucket,
+    messagingSenderId: process.env.messagingSenderId,
+    appId: process.env.appId*/
 };
 
 // Firebase initialisieren
@@ -77,6 +77,7 @@ async function loadAirplaneDetails() {
 }
 
 // Funktion zum Speichern der Änderungen
+// TODO: Implement new documents
 async function saveAirplaneDetails() {
     const id = airplaneIdSelect.value;
     if (id) {
@@ -111,3 +112,4 @@ document.getElementById('saveBtn').addEventListener('click', saveAirplaneDetails
 
 // Initiales Laden der Flugzeuge und Details beim Laden der Seite
 window.onload = loadAirplanes;
+//require('dotenv').config();
