@@ -47,15 +47,49 @@
         </div>
 
     </section>
+    <!-- Abschnitt 2: KML-Import -->
+    <section>
+        <h2>KML-Datei importieren</h2>
+        <input type="file" id="kmlFileInput" accept=".kml">
+        <table id="waypointsTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Notes</th>
+                    <th>Lat</th>
+                    <th>Lon</th>
+                    <th>To Maps</th>
+                    <th>Area</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </section>
 
-    <!-- Abschnitt 2: Wetter -->
+    <!-- Export-Optionen -->
+    <section>
+        <h2>Exportieren</h2>
+        <label for="windyUrl">Windy.com URL:</label>
+        <input type="text" id="windyUrl" readonly>
+
+        <label for="bulletinUrl">Bulletin Koordinaten:</label>
+        <input type="text" id="bulletinUrl" readonly>
+
+        <label for="skyvectorUrl">SkyVector URL:</label>
+        <input type="text" id="skyvectorUrl" readonly>
+
+        <button id="exportBtn">Daten exportieren</button>
+    </section>
+
+    <!-- Abschnitt 3: Wetter -->
     <section>
         <h2>Wetter</h2>
         <label for="weather">Weather Data:</label>
         <input type="text" id="weather" placeholder="Weather data input here...">
     </section>
 
-    <!-- Abschnitt 3: Route -->
+    <!-- Abschnitt 4: Route -->
     <section>
         <h2>Route</h2>
         <label for="route">Route Data:</label>

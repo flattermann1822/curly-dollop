@@ -25,6 +25,14 @@ const speedCruiseInput = document.getElementById('SpeedCruise_kmh');
 const typeInput = document.getElementById('Type');
 const maxCrosswindInput = document.getElementById('maxCrosswind_kt');
 
+
+const kmlFileInput = document.getElementById('kmlFileInput');
+const waypointsTable = document.getElementById('waypointsTable').querySelector('tbody');
+const windyUrlInput = document.getElementById('windyUrl');
+const bulletinUrlInput = document.getElementById('bulletinUrl');
+const skyvectorUrlInput = document.getElementById('skyvectorUrl');
+const exportBtn = document.getElementById('exportBtn');
+
 // Funktion zum Laden der Flugzeuge in das Dropdown-Menü
 async function loadAirplanes() {
     try {
@@ -103,7 +111,75 @@ async function saveAirplaneDetails() {
         }
     }
 }
+// Funktion zum Parsen des KML-Inhalts
+function parseKML(kmlContent) {
+    const parser = new DOMParser();
+    const xmlDoc = parser.parseFromString(kmlContent, "text/xml");
+    const placemarks = xmlDoc.getElementsByTagName("Placemark");
+    const coordinatesList = [];
 
+    // Tabelle leeren
+    waypointsTable.innerHTML = '';
+
+    // Placemark-Daten auslesen und in die Tabelle einfügen
+    Array.from(placemarks).forEach(placemark => {
+        const id = placemark.getAttribute('id') || 'N/A';
+        const name = placemark.getElementsByTagName('name')[0].textContent || 'N/A';
+        const notes = placemark.querySelector('Data[name="notes"]')?.textContent || 'N/A';
+        const coordinates = placemark.getElementsByTagName('coordinates')[0].textContent.trim().split(',');
+        const lon = coordinates[0];
+        const lat = coordinates[1];
+
+        coordinatesList.push({ lat, lon }); // Koordinaten zur späteren Verwendung speichern
+
+        // Zeile für die Tabelle erstellen
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${id}</td>
+            <td>${name}</td>
+            <td>${notes}</td>
+            <td>${lat}</td>
+            <td>${lon}</td>
+            <td><a href="https://www.google.com/maps?q=${lat},${lon}" target="_blank">Karte</a></td>
+            <td><img src="https://maps.googleapis.com/maps/api/staticmap?center=${lat},${lon}&zoom=15&size=150x150&maptype=satellite" alt="Satellite view"></td>
+        `;
+        waypointsTable.appendChild(row);
+    });
+
+    generateExportLinks(coordinatesList); // Export-Links generieren
+}
+// Funktion zum Generieren der Export-URLs
+function generateExportLinks(coordinatesList) {
+    // Windy.com URL generieren
+    const windyCoords = coordinatesList.map(coord => `${coord.lat},${coord.lon}`).join(';');
+    windyUrlInput.value = `https://www.windy.com/route-planner/vfr/${windyCoords}`;
+
+    // Bulletin Koordinaten generieren
+    const bulletinCoords = coordinatesList.map(coord => `${coord.lat.replace('.', '')}N${coord.lon.replace('.', '')}E`).join(' DCT ');
+    bulletinUrlInput.value = bulletinCoords;
+
+    // SkyVector URL generieren
+    const skyvectorCoords = coordinatesList.map(coord => `${coord.lat.slice(0, 4)}N${coord.lon.slice(0, 5)}E`).join(' ');
+    skyvectorUrlInput.value = `https://skyvector.com/?fpl=${skyvectorCoords}`;
+}
+
+// Event-Listener für den KML-Dateiimport
+kmlFileInput.addEventListener('change', async function (event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            const kmlContent = e.target.result;
+            parseKML(kmlContent); // KML-Inhalt parsen und verarbeiten
+        };
+        reader.readAsText(file);
+    }
+});
+
+// Export-Button-Funktion (optional für weitere Aktionen)
+exportBtn.addEventListener('click', function () {
+    alert('Daten wurden exportiert! Überprüfen Sie die URLs.');
+});
 // Event-Listener für das Dropdown-Menü
 airplaneIdSelect.addEventListener('change', loadAirplaneDetails);
 
