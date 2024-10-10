@@ -1,13 +1,6 @@
 // Firebase initialisieren
 //require('dotenv').config();
-const firebaseConfig = {
-    apiKey: "AIzaSyBVLPqqKlKZf1akZ7Zxm9PZONIjsbmTrXQ",
-    authDomain: "prepareandfly.firebaseapp.com",
-    projectId: "prepareandfly",
-    storageBucket: "prepareandfly.appspot.com",
-    messagingSenderId: "1031337548140",
-    appId: "1:1031337548140:web:d57006e96636494a417b49"
-  };
+
 
 firebase.initializeApp(firebaseConfig);
 var db = firebase.firestore();
@@ -111,56 +104,79 @@ async function saveAirplaneDetails() {
         }
     }
 }
-// Funktion zum Parsen des KML-Inhalts
-function parseKML(kmlContent) {
-    const parser = new DOMParser();
-    const xmlDoc = parser.parseFromString(kmlContent, "text/xml");
-    const placemarks = xmlDoc.getElementsByTagName("Placemark");
-    const coordinatesList = [];
+// Funktion zum Parsen der KML-Datei
+kmlFileInput.addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const kmlText = e.target.result;
+            const parser = new DOMParser();
+            const xmlDoc = parser.parseFromString(kmlText, "application/xml");
 
-    // Tabelle leeren
-    waypointsTable.innerHTML = '';
+            // Wegpunkte aus der KML-Datei extrahieren
+            const placemarks = xmlDoc.getElementsByTagName('Placemark');
+            waypointsTableBody.innerHTML = ''; // Tabelle leeren
 
-    // Placemark-Daten auslesen und in die Tabelle einfügen
-    Array.from(placemarks).forEach(placemark => {
-        const id = placemark.getAttribute('id') || 'N/A';
-        const name = placemark.getElementsByTagName('name')[0].textContent || 'N/A';
-        const notes = placemark.querySelector('Data[name="notes"]')?.textContent || 'N/A';
-        const coordinates = placemark.getElementsByTagName('coordinates')[0].textContent.trim().split(',');
-        const lon = coordinates[0];
-        const lat = coordinates[1];
+            let waypoints = [];
 
-        coordinatesList.push({ lat, lon }); // Koordinaten zur späteren Verwendung speichern
+            for (let i = 0; i < placemarks.length; i++) {
+                const placemark = placemarks[i];
+                const name = placemark.getElementsByTagName('name')[0]?.textContent || '';
+                const notes = placemark.querySelector('Data[name="notes"] value')?.textContent || '';
+                const coordinates = placemark.getElementsByTagName('coordinates')[0]?.textContent.trim().split(',');
 
-        // Zeile für die Tabelle erstellen
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${id}</td>
-            <td>${name}</td>
-            <td>${notes}</td>
-            <td>${lat}</td>
-            <td>${lon}</td>
-            <td><a href="https://www.google.com/maps?q=${lat},${lon}" target="_blank">Karte</a></td>
-            <td><img src="https://maps.googleapis.com/maps/api/staticmap?center=${lat},${lon}&zoom=15&size=150x150&maptype=satellite" alt="Satellite view"></td>
-        `;
-        waypointsTable.appendChild(row);
-    });
+                const lon = coordinates[0];
+                const lat = coordinates[1];
 
-    generateExportLinks(coordinatesList); // Export-Links generieren
-}
-// Funktion zum Generieren der Export-URLs
-function generateExportLinks(coordinatesList) {
-    // Windy.com URL generieren
-    const windyCoords = coordinatesList.map(coord => `${coord.lat},${coord.lon}`).join(';');
-    windyUrlInput.value = `https://www.windy.com/route-planner/vfr/${windyCoords}`;
+                // In die Tabelle einfügen
+                const row = waypointsTableBody.insertRow();
+                row.insertCell(0).textContent = name;
+                row.insertCell(1).textContent = notes;
+                row.insertCell(2).textContent = lat;
+                row.insertCell(3).textContent = lon;
 
-    // Bulletin Koordinaten generieren
-    const bulletinCoords = coordinatesList.map(coord => `${coord.lat.replace('.', '')}N${coord.lon.replace('.', '')}E`).join(' DCT ');
-    bulletinUrlInput.value = bulletinCoords;
+                // Elevation API-Aufruf
+                fetchElevation(lat, lon, row);
 
-    // SkyVector URL generieren
-    const skyvectorCoords = coordinatesList.map(coord => `${coord.lat.slice(0, 4)}N${coord.lon.slice(0, 5)}E`).join(' ');
-    skyvectorUrlInput.value = `https://skyvector.com/?fpl=${skyvectorCoords}`;
+                const mapsLink = `https://www.google.com/maps?q=${lat},${lon}`;
+                const mapsCell = row.insertCell(5);
+                const link = document.createElement('a');
+                link.href = mapsLink;
+                link.textContent = "Google Maps";
+                link.target = "_blank";
+                mapsCell.appendChild(link);
+
+                // Speichere Wegpunkte für den Export
+                waypoints.push({ lat, lon });
+            }
+
+            // Export-URLs generieren
+            generateExportUrls(waypoints);
+        };
+
+        reader.readAsText(file);
+    }
+});
+// Export-URLs generieren
+function generateExportUrls(waypoints) {
+    const latLonStrings = waypoints.map(wp => `${wp.lat},${wp.lon}`).join(';');
+
+    // Windy.com URL
+    const windyUrl = `https://www.windy.com/route-planner/vfr/${latLonStrings}`;
+    document.getElementById('windyExport').value = windyUrl;
+
+    // Bulletin format
+    const bulletinString = waypoints.map(wp => {
+        const latDeg = wp.lat.split('.')[0];
+        const lonDeg = wp.lon.split('.')[0];
+        return `${latDeg}N${lonDeg}E`;
+    }).join(' DCT ');
+    document.getElementById('bulletinExport').value = bulletinString;
+
+    // Skyvector URL
+    const skyvectorUrl = `https://skyvector.com/?fpl=${waypoints.map(wp => `${wp.lat}N${wp.lon}E`).join(' DCT ')}`;
+    document.getElementById('skyvectorExport').value = skyvectorUrl;
 }
 
 // Event-Listener für den KML-Dateiimport
@@ -175,6 +191,23 @@ kmlFileInput.addEventListener('change', async function (event) {
         reader.readAsText(file);
     }
 });
+// Funktion zum Abrufen der Höheninformationen (Elevation)
+function fetchElevation(lat, lon, row) {
+    const elevationApiUrl = `https://api.open-elevation.com/api/v1/lookup?locations=${lat},${lon}`;
+
+    fetch(elevationApiUrl)
+        .then(response => response.json())
+        .then(data => {
+            const elevation = data.results[0].elevation;
+            const elevationCell = row.insertCell(4); // Spalte für Elevation
+            elevationCell.textContent = elevation ? `${elevation} m` : 'N/A';
+        })
+        .catch(error => {
+            console.error("Elevation API error:", error);
+            const elevationCell = row.insertCell(4); // Spalte für Elevation
+            elevationCell.textContent = 'N/A';
+        });
+}
 
 // Export-Button-Funktion (optional für weitere Aktionen)
 exportBtn.addEventListener('click', function () {

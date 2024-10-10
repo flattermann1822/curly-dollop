@@ -47,40 +47,47 @@
         </div>
 
     </section>
-    <!-- Abschnitt 2: KML-Import -->
-    <section>
-        <h2>KML-Datei importieren</h2>
-        <input type="file" id="kmlFileInput" accept=".kml">
-        <table id="waypointsTable">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Notes</th>
-                    <th>Lat</th>
-                    <th>Lon</th>
-                    <th>To Maps</th>
-                    <th>Area</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-    </section>
+ <!-- Abschnitt 4: KML Import -->
+<section>
+    <h2>KML Import</h2>
+    <label for="kmlFile">Import .kml File:</label>
+    <input type="file" id="kmlFile" accept=".kml">
+    <table id="waypointsTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Notes</th>
+                <th>Lat</th>
+                <th>Lon</th>
+                <th>Elevation (m)</th> <!-- New elevation column -->
+                <th>To Maps</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Waypoints will be inserted here -->
+        </tbody>
+    </table>
+</section>
 
-    <!-- Export-Optionen -->
-    <section>
-        <h2>Exportieren</h2>
-        <label for="windyUrl">Windy.com URL:</label>
-        <input type="text" id="windyUrl" readonly>
-
-        <label for="bulletinUrl">Bulletin Koordinaten:</label>
-        <input type="text" id="bulletinUrl" readonly>
-
-        <label for="skyvectorUrl">SkyVector URL:</label>
-        <input type="text" id="skyvectorUrl" readonly>
-
-        <button id="exportBtn">Daten exportieren</button>
-    </section>
+<!-- Abschnitt 5: Export URLs -->
+<section>
+    <h2>Export Options</h2>
+    <div>
+        <h3>Windy.com</h3>
+        <textarea id="windyExport" readonly></textarea>
+        <button id="windyExportBtn">Export to Windy</button>
+    </div>
+    <div>
+        <h3>Bulletin</h3>
+        <textarea id="bulletinExport" readonly></textarea>
+        <button id="bulletinExportBtn">Export to Bulletin</button>
+    </div>
+    <div>
+        <h3>Skyvector</h3>
+        <textarea id="skyvectorExport" readonly></textarea>
+        <button id="skyvectorExportBtn">Export to Skyvector</button>
+    </div>
+</section>
 
     <!-- Abschnitt 3: Wetter -->
     <section>
