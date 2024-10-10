@@ -1,13 +1,6 @@
 // Firebase initialisieren
 //require('dotenv').config();
-const firebaseConfig = {
-    apiKey: "AIzaSyBVLPqqKlKZf1akZ7Zxm9PZONIjsbmTrXQ",
-    authDomain: "prepareandfly.firebaseapp.com",
-    projectId: "prepareandfly",
-    storageBucket: "prepareandfly.appspot.com",
-    messagingSenderId: "1031337548140",
-    appId: "1:1031337548140:web:d57006e96636494a417b49"
-  };
+
 
 firebase.initializeApp(firebaseConfig);
 var db = firebase.firestore();
